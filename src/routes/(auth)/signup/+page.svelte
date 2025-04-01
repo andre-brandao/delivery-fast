@@ -3,7 +3,8 @@
 
 	let { data }: { data: PageData } = $props();
 
-	import auth from '$lib/client/auth-client';
+	import auth, { getErrorMessage } from '$lib/client/auth-client';
+	import { goto } from '$app/navigation';
 
 	let email = $state('eu@andrebrandao.dev');
 	let password = $state('senha123');
@@ -12,16 +13,16 @@
 	let msg = '';
 	const login = async (e: SubmitEvent) => {
 		e.preventDefault();
-		const res = await auth.signUp.email({
+		const {error} = await auth.signUp.email({
 			email,
 			password,
 			name
 		});
-		console.log(res);
-		if (res.error?.message) {
-			msg = res.error.message;
+		if (error?.code) {
+			alert(getErrorMessage(error.code, 'en'));
 		} else {
 			msg = 'Sign up successful!';
+			goto('/');
 		}
 	};
 </script>

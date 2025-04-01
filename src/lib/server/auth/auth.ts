@@ -4,25 +4,39 @@ import { organization } from 'better-auth/plugins';
 import { db } from '../db';
 import * as schema from '../db/schema';
 import { admin } from 'better-auth/plugins';
+
+import { ac, roles } from '$lib/auth/permissions';
+
 export const auth = betterAuth({
 	database: drizzleAdapter(db, {
 		provider: 'pg',
 		schema: { ...schema, users: schema.user }
 	}),
 	user: {
-        changeEmail: {
-            enabled: true,
+		changeEmail: {
+			enabled: true
 			// sendChangeEmailVerification: async ({ user, newEmail, url, token }, request) => {
-            //     await sendEmail({
-            //         to: user.email, // verification email must be sent to the current user email to approve the change
-            //         subject: 'Approve email change',
-            //         text: `Click the link to approve the change: ${url}`
-            //     })
-            // }
-        }
-    },
+			//     await sendEmail({
+			//         to: user.email, // verification email must be sent to the current user email to approve the change
+			//         subject: 'Approve email change',
+			//         text: `Click the link to approve the change: ${url}`
+			//     })
+			// }
+		}
+	},
 	emailAndPassword: {
 		enabled: true
 	},
-	plugins: [organization(), admin()]
+	plugins: [
+		organization({
+			ac,
+			roles
+		}),
+		admin({
+            
+        })
+	],
+	advanced: {
+		cookiePrefix: 'rota88'
+	}
 });

@@ -3,7 +3,8 @@
 
 	let { data }: { data: PageData } = $props();
 
-	import auth from '$lib/client/auth-client';
+	import auth, { getErrorMessage } from '$lib/client/auth-client';
+	import { goto } from '$app/navigation';
 
 	let email = $state('eu@andrebrandao.dev');
 	let password = $state('senha123');
@@ -17,13 +18,13 @@
 			password
 			// name,
 		});
-		if (error) {
-			console.error('Login error:', error);
-			msg = error.message ?? 'Login failed'; // Set error message
+		if (error?.code) {
+			alert(getErrorMessage(error.code, 'en'));
 		} else {
 			// Handle successful login
 			msg = 'Login successful!'; // Set success message
 			// Optionally redirect or perform other actions here
+			goto('/');
 		}
 	};
 </script>
@@ -48,5 +49,5 @@
 		<p>{JSON.stringify(data)}</p>
 	{/if}
 
-    <a href="/signup">Sign Up</a>
+	<a href="/signup">Sign Up</a>
 </div>
