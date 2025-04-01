@@ -34,6 +34,8 @@
 	{:else}
 		<a href="/login"> Login </a>
 	{/if}
+
+	<a href="/api/auth/reference">API</a>
 </div>
 
 {@render children()}
