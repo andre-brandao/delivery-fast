@@ -49,9 +49,32 @@
 		});
 	};
 
-	// The callback runs every time the Shape data changes.
-</script>
 
+	import { MapLibre, NavigationControl, ScaleControl, GlobeControl, Marker } from 'svelte-maplibre-gl';
+
+
+</script>
+<!-- 
+<MapLibre
+  zoom={5}
+  center={[142, 43]}
+  class="h-[400px]"
+  style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
+>
+  <Marker lnglat={[141.692222, 42.775]} />
+</MapLibre> -->
+<MapLibre
+  class="h-[55vh] min-h-[300px]"
+  style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
+  zoom={3.5}
+  center={[142, 43]}
+>
+  <NavigationControl />
+  <ScaleControl />
+  <GlobeControl />
+  <Marker lnglat={[141.692222, 42.775]} />
+
+</MapLibre>
 <button onclick={deleteUsers}>Delete Users</button>
 <p>shape</p>
 <pre>
