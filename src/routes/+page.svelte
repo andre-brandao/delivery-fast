@@ -8,26 +8,26 @@
 	import { ShapeStream, Shape, type ShapeStreamOptions, type Row } from '@electric-sql/client';
 	import { Live } from '$lib/client/shape.svelte';
 
-	let intervael: number | undefined = $state();
-	onMount(() => {
-		intervael = setInterval(() => {
-			fetch('/api/user', {
-				method: 'POST'
-			});
-		}, 5000);
-	});
-
-	onDestroy(() => {
-		clearInterval(intervael);
-	});
+	//let intervael: number | undefined = $state();
+	//onMount(() => {
+	//	intervael = setInterval(() => {
+	//		fetch('/api/user', {
+	//			method: 'POST'
+	//		});
+	//	}, 5000);
+	//});
+//
+	//onDestroy(() => {
+	//	clearInterval(intervael);
+	//});
 	const liveUsers = new Live({
 		url: `http://localhost:3000/v1/shape`,
 		// url: "/api/live/user"
 		params: {
 			table: 'user',
-			where: 'age > $1',
+			// where: 'age > $1',
 			// columns: ['id', 'name', 'email'],
-			params: ['18'],
+			// params: ['18'],
 			replica: 'full'
 		}
 	});
