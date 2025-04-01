@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { pgTable, text, integer, timestamp, boolean } from 'drizzle-orm/pg-core';
 
 export const user = pgTable('user', {
