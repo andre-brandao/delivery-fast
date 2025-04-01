@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { pgTable, text, integer, timestamp, boolean } from 'drizzle-orm/pg-core';
 
 export const user = pgTable('user', {
@@ -90,4 +89,19 @@ export const invitation = pgTable('invitation', {
 	inviterId: text('inviter_id')
 		.notNull()
 		.references(() => user.id, { onDelete: 'cascade' })
+});
+
+export const passkey = pgTable('passkey', {
+	id: text('id').primaryKey(),
+	name: text('name'),
+	publicKey: text('public_key').notNull(),
+	userId: text('user_id')
+		.notNull()
+		.references(() => user.id, { onDelete: 'cascade' }),
+	credentialID: text('credential_i_d').notNull(),
+	counter: integer('counter').notNull(),
+	deviceType: text('device_type').notNull(),
+	backedUp: boolean('backed_up').notNull(),
+	transports: text('transports'),
+	createdAt: timestamp('created_at')
 });
