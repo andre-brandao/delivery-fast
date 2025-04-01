@@ -16,7 +16,6 @@
 		"db:push": "drizzle-kit push",
 		"db:migrate": "drizzle-kit migrate",
 		"db:generate": "drizzle-kit generate",
-
 		"db:studio": "drizzle-kit studio"
 	},
 	"devDependencies": {
@@ -42,6 +41,8 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
+		"@electric-sql/client": "^1.0.0",
+		"daisyui": "^5.0.9",
 		"drizzle-orm": "^0.40.0",
 		"postgres": "^3.4.5"
 	}
