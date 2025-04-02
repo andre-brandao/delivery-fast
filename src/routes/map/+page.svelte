@@ -19,7 +19,7 @@
 
 			body: JSON.stringify({ location: loc })
 		})
-			.then((response) => response.json())
+			// .then((response) => response.json())
 			.then((data) => {
 				console.log('motoboy created', data);
 			})
@@ -39,7 +39,7 @@
 			columns: [
 				'id',
 				'location',
-				'status',
+				'status'
 				// 'ST_AsText\(location\)'
 				// 'ST_X(location)', 'ST_Y(location)'
 			],
@@ -48,7 +48,7 @@
 		}
 	});
 	const deleteUsers = async () => {
-		await fetch('/api/user', {
+		await fetch('/api/motoboy', {
 			method: 'DELETE'
 		});
 	};
@@ -60,35 +60,37 @@
 		GlobeControl,
 		Marker
 	} from 'svelte-maplibre-gl';
+	import { parseEWKB } from '$lib';
 </script>
 
-<!-- 
-<MapLibre
-  zoom={5}
-  center={[142, 43]}
-  class="h-[400px]"
-  style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
->
-  <Marker lnglat={[141.692222, 42.775]} />
-</MapLibre> -->
 <MapLibre
 	class="h-[55vh] min-h-[300px]"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={3.5}
-	center={[142, 43]}
+	center={[74, 43]}
 	onclick={(e) => {
 		const loc = e.lngLat;
-		console.log('click', e);
-		createTestMotoboy(`${loc.lng},${loc.lat}`);
+		console.log('click loc', loc);
+		createTestMotoboy(`${loc.lat},${loc.lng}`);
 	}}
 >
 	<NavigationControl />
 	<ScaleControl />
 	<GlobeControl />
-	<Marker lnglat={[141.692222, 42.775]} />
+	{#each liveUsers.rows as row (row.id)}
+		{#if typeof row.location === 'string'}
+			{@const [lat, long] = parseEWKB(row.location)}
+			{@const foo = console.log([lat, long])}
+			{#if lat < 90 && long < 180 && lat > -90 && long > -180}
+				<Marker lnglat={[long, lat]} />
+			{/if}
+		{/if}
+	{/each}
 </MapLibre>
 <button onclick={deleteUsers}>Delete Users</button>
 <p>shape</p>
+
+<p>rows</p>
 <pre>
 	{JSON.stringify(liveUsers.rows, null, 2)}
 </pre>

@@ -5,9 +5,9 @@ import type { RequestHandler } from './$types';
 export const POST: RequestHandler = async ({ request }) => {
 	try {
 		const body = await request.json();
-		const location = body.location;
+		const location = toLoc(body.location);
 		await db.insert(s.motoboy).values({
-			location: toLoc(location),
+			location: location,
 			status: 'available',
 			id: sql`gen_random_uuid()`
 		});
@@ -18,11 +18,20 @@ export const POST: RequestHandler = async ({ request }) => {
 	}
 };
 
+export const DELETE: RequestHandler = async () => {
+	try {
+		await db.delete(s.motoboy);
+		return new Response();
+	} catch (er) {
+		console.error(er);
+		return new Response('Error', { status: 500 });
+	}
+};
 function toLoc(loc: string) {
 	const [lat, lon] = loc.split(',');
 
 	if (!lat || !lon) {
 		throw new Error('Invalid location format');
 	}
-	return sql`ST_SetSRID(ST_MakePoint(${lat}, ${lon}), 4326)`;
+	return sql`ST_SetSRID(ST_MakePoint(${lon}, ${lat}), 4326)`;
 }
