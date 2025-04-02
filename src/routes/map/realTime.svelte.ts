@@ -21,7 +21,7 @@ export class RestaurantState {
 			url: ELECTRIC_URL,
 			// url: "/api/live/user"
 			params: {
-				table: 'motoboy',
+				table: 'public.motoboy',
 				// where: 'age > $1',
 				columns: [
 					'id',
