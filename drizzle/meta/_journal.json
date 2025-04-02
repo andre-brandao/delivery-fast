@@ -15,6 +15,20 @@
       "when": 1743547481527,
       "tag": "0001_passkey",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1743549212200,
+      "tag": "0002_motoboy",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1743549526994,
+      "tag": "0003_id",
+      "breakpoints": true
     }
   ]
 }
