@@ -11,3 +11,5 @@ export const motoboy = pgTable('motoboy', {
 	location: geometry('location', { mode: 'tuple', srid: 4326 }).notNull(),
 	status: motoboyStatusEnum('status').notNull().default('available'),
 });
+
+export type Motoboy = typeof motoboy.$inferSelect

@@ -12,15 +12,16 @@
 <div class="flex flex-col items-center justify-center">
 	{#if $session.data}
 		<div class="flex w-full items-center justify-around">
-			<p>
+			<a href="/">
 				{$session?.data?.user.name}
 				<!-- {$session?.data?.user.email} -->
-			</p>
-			<p>
+			</a>
+			<a href="/org">
 				{#if $org?.data?.name}
 					{$org.data.name}
 				{/if}
-			</p>
+			</a>
+			<a href="/map"> Map </a>
 
 			<button
 				class="btn btn-primary"

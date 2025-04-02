@@ -1,5 +1,7 @@
-<script module>
-	export { bike };
+<script module lang="ts">
+	import type { Motoboy } from '$lib/server/db/order-schema';
+
+	export { bike, motoboy }
 </script>
 
 {#snippet bike()}
@@ -9,4 +11,21 @@
 		r="1"
 	/>
 	<path d="M12 17.5V14l-3-3 4-3 2 3h2" />
+{/snippet}
+
+{#snippet motoboy(status: Motoboy['status'])}
+	{@const color = status === 'available' ? 'green' : status === 'busy' ? 'orange' : 'red'}
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke={color}
+		stroke-width="2"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+	>
+		{@render bike()}
+	</svg>
 {/snippet}

@@ -3,19 +3,17 @@ import {
 	Shape,
 	type ShapeStreamOptions,
 	type Row,
-	FetchError,
-    
+	FetchError
 } from '@electric-sql/client';
 
-export class Live {
-	rows: Row[] = $state([]);
+export class Live<T extends Row> {
+	rows: Row<T>[] = $state([]);
 
 	#unsub: undefined | (() => void) = undefined;
 
 	constructor(options: ShapeStreamOptions) {
 		try {
-			
-			const stream = new ShapeStream({
+			const stream = new ShapeStream<T>({
 				onError: (error) => {
 					// Handle all stream errors here
 					if (error instanceof FetchError) {
@@ -26,15 +24,15 @@ export class Live {
 				},
 				...options
 			});
-			const shape = new Shape(stream);
+			const shape = new Shape<T>(stream);
 			shape.rows.then((r) => {
-				console.log('then');
-				console.log(r);
+				// console.log('then');
+				// console.log(r);
 				this.rows = r;
 			});
 			this.#unsub = shape.subscribe((d) => {
-				console.log('subscribe');
-				console.log(d);
+				// console.log('subscribe');
+				// console.log(d);
 				this.rows = d.rows;
 			});
 		} catch (error) {
