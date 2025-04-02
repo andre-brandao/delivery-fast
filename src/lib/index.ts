@@ -14,7 +14,10 @@
  * const coords = parseEWKB("0101000020E6100000000000000000F03F0000000000000040");
  * // Returns [2, 1] (latitude, longitude)
  */
-export function parseEWKB(wkbHex: string): [number, number] {
+export function parseEWKB(wkbHex: unknown): [number, number] {
+	if (typeof wkbHex !== 'string') {
+		throw new Error('Invalid EWKB: Expected a hex string');
+	}
 	// Convert hex string to an ArrayBuffer
 	const buffer = new ArrayBuffer(wkbHex.length / 2);
 	const view = new DataView(buffer);
@@ -39,4 +42,20 @@ export function parseEWKB(wkbHex: string): [number, number] {
 
 	return [latitude, longitude] 
 	// return { latitude, longitude, srid };
+}
+
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function debounce<T extends (...args: any[]) => void>(
+	func: T,
+	delay: number
+): (...args: Parameters<T>) => void {
+	let timeoutId: number | undefined;
+
+	return (...args: Parameters<T>): void => {
+		if (timeoutId) {
+			clearTimeout(timeoutId);
+		}
+		timeoutId = window.setTimeout(() => func(...args), delay);
+	};
 }

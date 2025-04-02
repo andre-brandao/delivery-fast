@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { db } from '$lib/server/db';
 import * as s from '$lib/server/db/schema';
-import { sql } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import type { RequestHandler } from './$types';
+
 export const POST: RequestHandler = async ({ request }) => {
 	try {
 		const body = await request.json();
@@ -35,3 +37,24 @@ function toLoc(loc: string) {
 	}
 	return sql`ST_SetSRID(ST_MakePoint(${lon}, ${lat}), 4326)`;
 }
+
+export const PATCH: RequestHandler = async ({ request }) => {
+	try {
+		const body = await request.json();
+		const location = toLoc(body.location);
+		const id = body.id;
+		if (!id) {
+			return new Response('Invalid id', { status: 400 });
+		}
+		await db
+			.update(s.motoboy)
+			.set({
+				location: location
+			})
+			.where(eq(s.motoboy.id, id));
+		return new Response();
+	} catch (error) {
+		console.error(error);
+		return new Response('error', { status: 501 });
+	}
+};
