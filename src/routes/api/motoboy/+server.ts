@@ -6,11 +6,14 @@ import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request }) => {
 	try {
+		// console.log("POST: /api/motoboy");
 		const body = await request.json();
 		const location = toLoc(body.location);
+		const status = body.status;
+
 		await db.insert(s.motoboy).values({
 			location: location,
-			status: 'available',
+			status: toMotoboyStatus(status),
 			id: sql`gen_random_uuid()`
 		});
 		return new Response();
@@ -19,7 +22,6 @@ export const POST: RequestHandler = async ({ request }) => {
 		return new Response('Error', { status: 500 });
 	}
 };
-
 export const DELETE: RequestHandler = async () => {
 	try {
 		await db.delete(s.motoboy);
@@ -29,6 +31,29 @@ export const DELETE: RequestHandler = async () => {
 		return new Response('Error', { status: 500 });
 	}
 };
+export const PATCH: RequestHandler = async ({ request }) => {
+	try {
+		const body = await request.json();
+		const location = toLoc(body.location);
+		const status = toMotoboyStatus(body.status)
+		const id = body.id;
+		if (!id) {
+			return new Response('Invalid id', { status: 400 });
+		}
+		await db
+			.update(s.motoboy)
+			.set({
+				location: location,
+				status: status || undefined,
+			})
+			.where(eq(s.motoboy.id, id));
+		return new Response();
+	} catch (error) {
+		console.error(error);
+		return new Response('error', { status: 501 });
+	}
+};
+
 function toLoc(loc: string) {
 	const [lat, lon] = loc.split(',');
 
@@ -38,23 +63,10 @@ function toLoc(loc: string) {
 	return sql`ST_SetSRID(ST_MakePoint(${lon}, ${lat}), 4326)`;
 }
 
-export const PATCH: RequestHandler = async ({ request }) => {
-	try {
-		const body = await request.json();
-		const location = toLoc(body.location);
-		const id = body.id;
-		if (!id) {
-			return new Response('Invalid id', { status: 400 });
-		}
-		await db
-			.update(s.motoboy)
-			.set({
-				location: location
-			})
-			.where(eq(s.motoboy.id, id));
-		return new Response();
-	} catch (error) {
-		console.error(error);
-		return new Response('error', { status: 501 });
+function toMotoboyStatus(s: unknown): s.Motoboy['status'] {
+	if (typeof s !== 'string') {
+		return 'available';
 	}
-};
+
+	return s as s.Motoboy['status']
+}

@@ -1,3 +1,5 @@
+import type { Motoboy } from "$lib/server/db/order-schema";
+
 export const api = {
 	motoboy: {
 		create: (loc: string) =>
@@ -17,7 +19,7 @@ export const api = {
 					console.error('Error creating motoboy:', error);
 				}),
 
-		update: (id: unknown, loc: string) => {
+		update: (id: unknown, loc: string, status: Motoboy['status'] | string) => {
 			if (typeof id !== 'string') {
 				console.error('id is not a string', id);
 				return;
@@ -29,7 +31,7 @@ export const api = {
 						'Content-Type': 'application/json'
 					},
 
-					body: JSON.stringify({ id, location: loc })
+					body: JSON.stringify({ id, location: loc, status })
 				})
 					// .then((response) => response.json())
 					.then((data) => {

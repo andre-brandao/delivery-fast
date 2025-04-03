@@ -23,13 +23,11 @@ export class RestaurantState {
 			params: {
 				table: 'public.motoboy',
 				// where: 'age > $1',
-				columns: [
-					'id',
-					'location',
-					'status'
-					// 'ST_AsText\(location\)'
-					// 'ST_X(location)', 'ST_Y(location)'
-				],
+				// columns: [
+				// 	'id',
+				// 	'location',
+				// 	'status'
+				// ],
 				// params: ['18'],
 				replica: 'full'
 			}

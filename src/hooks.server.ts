@@ -7,6 +7,8 @@ import { svelteKitHandler, toSvelteKitHandler, isAuthPath } from 'better-auth/sv
 const handleUser: Handle = async ({ event, resolve }) => {
 	const { request } = event;
 
+	console.log(`${request.method}: ${new URL(request.url).pathname}`)
+
 	try {
 		const session = await auth.api.getSession({
 			headers: request.headers

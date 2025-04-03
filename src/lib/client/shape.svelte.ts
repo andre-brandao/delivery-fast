@@ -24,15 +24,17 @@ export class Live<T extends Row> {
 				},
 				...options
 			});
+			console.log("Stream: " +  JSON.stringify(stream))
 			const shape = new Shape<T>(stream);
-			shape.rows.then((r) => {
-				// console.log('then');
-				// console.log(r);
-				this.rows = r;
-			});
+			console.log("Shape: " + JSON.stringify(shape))
+			// shape.rows.then((r) => {
+			// 	console.log('then');
+			// 	console.log(r);
+			// 	this.rows = r;
+			// });
 			this.#unsub = shape.subscribe((d) => {
-				// console.log('subscribe');
-				// console.log(d);
+				console.log('subscribe');
+				console.log(d.rows);
 				this.rows = d.rows;
 			});
 		} catch (error) {
@@ -44,27 +46,3 @@ export class Live<T extends Row> {
 		this.#unsub?.();
 	}
 }
-
-// export function useShape(options: ShapeStreamOptions) {
-// 	const data = $state<{ rows: Row[] }>({ rows: [] });
-// 	const stream = new ShapeStream(options);
-// 	const shape = new Shape(stream);
-// 	// shape.rows
-// 	shape.rows.then((r) => {
-// 		data.rows = r;
-// 		console.log(r);
-// 		console.log('then');
-// 	});
-// 	shape.subscribe((d) => {
-// 		console.log(d);
-// 		data.rows = d.rows;
-// 	});
-// 	return {
-// 		// rows,
-// 		get rows() {
-// 			return data.rows;
-// 		},
-
-// 		shape
-// 	};
-// }

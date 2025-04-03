@@ -28,10 +28,27 @@
 	import { getRestaurant } from './realTime.svelte';
 
 	const restaurant = getRestaurant();
+
+	const cicleStatus =async  (row: { id: string; location: string; status: string }) => {
+		switch (row.status) {
+			case 'available':
+				await api.motoboy.update(row.id, row.location, 'busy');
+
+				break;
+			case 'busy':
+				await api.motoboy.update(row.id, row.location, 'unavailable');
+				break;
+			case 'unavailable':
+				await api.motoboy.update(row.id, row.location, 'available');
+				break;
+
+			default:
+				break;
+		}
+	};
 </script>
 
-
-<ul class="list bg-base-100 rounded-box shadow-md max-h-[80vh] overflow-y-scroll">
+<ul class="list bg-base-100 rounded-box max-h-[80vh] overflow-y-scroll shadow-md">
 	<li class="p-4 pb-2 text-xs tracking-wide opacity-60">Motoboys</li>
 	<button class="btn" onclick={api.motoboy.deleteAll}>Delete Motoboyy</button>
 
@@ -39,7 +56,7 @@
 		{@const [lat, long] = parseEWKB(row.location)}
 		<li class="list-row">
 			<div class="rounded-box size-10">
-				{@render motoboy(row.status)}
+				{@render motoboy(row.status as Motoboy['status'])}
 			</div>
 			<div>
 				<div>{row.status}</div>
@@ -48,7 +65,17 @@
 			<p class="list-col-wrap text-xs">
 				{row.location} - {lat} - {long}
 			</p>
-			<button class="btn btn-square btn-ghost">
+			<button
+				class="btn btn-square btn-ghost"
+				onclick={() => {
+					if (!row.id || !row.status) return;
+					cicleStatus({
+						id: row.id.toString(),
+						location: `${lat},${long}`,
+						status: row.status?.toString() ?? 'busy'
+					});
+				}}
+			>
 				<svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
 					><g
 						stroke-linejoin="round"
@@ -58,6 +85,7 @@
 						stroke="currentColor"><path d="M6 3L20 12 6 21 6 3z"></path></g
 					></svg
 				>
+				Teste
 			</button>
 			<button class="btn btn-square btn-ghost">
 				<svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"

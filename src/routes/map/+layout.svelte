@@ -63,7 +63,7 @@
 					bind:lnglat={
 						() => [long, lat],
 						(v) => {
-							debouncedUpdate(row.id, `${v[1]},${v[0]}`);
+							debouncedUpdate(row.id, `${v[1]},${v[0]}`, 'available');
 						}
 					}
 				>
