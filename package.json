@@ -45,6 +45,7 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
+		"@better-auth/expo": "^1.2.5",
 		"@electric-sql/client": "^1.0.0",
 		"better-auth": "^1.2.5",
 		"daisyui": "^5.0.9",

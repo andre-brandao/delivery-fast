@@ -14,16 +14,19 @@ import { ac, roles } from '../../auth/permissions';
 import { admin } from 'better-auth/plugins';
 import { openAPI } from 'better-auth/plugins';
 import { passkey } from 'better-auth/plugins/passkey';
-
+import { expo } from "@better-auth/expo";
+ 
 // OTHER
 import { sendEmail } from '../email';
 // import { dev } from '$app/environment';
 import { env } from '$env/dynamic/private';
+import { trustedOrigins } from '$lib/config';
 
 
 
 
 export const auth = betterAuth({
+	trustedOrigins: trustedOrigins,
 	database: drizzleAdapter(db, {
 		provider: 'pg',
 		schema: { ...schema, users: schema.user }
@@ -67,6 +70,7 @@ export const auth = betterAuth({
 		}
 	},
 	plugins: [
+		expo(),
 		organization({
 			ac,
 			roles,
@@ -124,6 +128,6 @@ export const auth = betterAuth({
 		}),
 	],
 	advanced: {
-		cookiePrefix: 'rota88'
+		cookiePrefix: 'better-auth',
 	}
 });

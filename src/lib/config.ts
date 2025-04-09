@@ -1,0 +1,1 @@
+export const trustedOrigins = ["better-auth://", "my-app://", "http://localhost:8081","exp://192.168.5.165:8081"]
