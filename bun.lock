@@ -4,6 +4,7 @@
     "": {
       "name": "kit",
       "dependencies": {
+        "@better-auth/expo": "^1.2.5",
         "@electric-sql/client": "^1.0.0",
         "better-auth": "^1.2.5",
         "daisyui": "^5.0.9",
@@ -40,6 +41,8 @@
   },
   "packages": {
     "@ampproject/remapping": ["@ampproject/remapping@2.3.0", "", { "dependencies": { "@jridgewell/gen-mapping": "^0.3.5", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw=="],
+
+    "@better-auth/expo": ["@better-auth/expo@1.2.5", "", { "dependencies": { "@better-fetch/fetch": "^1.1.17", "better-call": "^1.0.5", "zod": "^3.23.8" }, "peerDependencies": { "better-auth": "1.2.5" } }, "sha512-rHddnBX192YHtJfhegWihowz5VWebKwlwyqVcSmzCIhOnxvYRo2aEPfIB5qci87hivEOXIiDubul9vsoWJjXnA=="],
 
     "@better-auth/utils": ["@better-auth/utils@0.2.4", "", { "dependencies": { "typescript": "^5.8.2", "uncrypto": "^0.1.3" } }, "sha512-ayiX87Xd5sCHEplAdeMgwkA0FgnXsEZBgDn890XHHwSWNqqRZDYOq3uj2Ei2leTv1I2KbG5HHn60Ah1i2JWZjQ=="],
 
