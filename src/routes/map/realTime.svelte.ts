@@ -1,9 +1,10 @@
+import { PUBLIC_ELECTRIC_URL } from '$env/static/public';
 import { Live } from '$lib/client/shape.svelte';
 import type { Motoboy } from '$lib/server/db/order-schema';
 import { getContext, setContext } from 'svelte';
 // import type { Row } from '@electric-sql/client';
-
-const ELECTRIC_URL = `http://localhost:3000/v1/shape`;
+// 
+// const ELECTRIC_URL = `http://localhost:3000/v1/shape`;
 
 export class RestaurantState {
 	motoboys: Live<{
@@ -18,7 +19,7 @@ export class RestaurantState {
 			location: string;
 			status: Motoboy['status'];
 		}>({
-			url: ELECTRIC_URL,
+			url: PUBLIC_ELECTRIC_URL,
 			// url: "/api/live/user"
 			params: {
 				table: 'public.motoboy',
