@@ -28,6 +28,11 @@
 	const debouncedUpdate = debounce(api.motoboy.update, 500);
 
 	// onDestroy(restaurant.destructor);
+$effect(()=>{
+    return ()=>{
+        restaurant.destructor()
+    }
+})
 </script>
 
 <div class="flex max-md:flex-col">
