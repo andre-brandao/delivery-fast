@@ -30,12 +30,11 @@ const handleUser: Handle = async ({ event, resolve }) => {
 
 const handleCors: Handle = async ({ event, resolve }) => {
     const origin = event.request.headers.get("origin");
-    const isTrusted = (origin != null) && trustedOrigins.includes(origin);
-    
+
+    const isTrusted: boolean = (origin != null) && trustedOrigins.some((o) => origin.startsWith(o))
+
     console.log(`CORS: ${event.request.method} ${event.url.pathname} - Origin: ${origin} - Trusted: ${isTrusted} `);
-    
-    
-    console.log(origin)
+
     if (event.url.pathname.startsWith("/api")) {
         // Handle preflight (OPTIONS) requests
         if (event.request.method === "OPTIONS") {

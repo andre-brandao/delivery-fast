@@ -40,7 +40,7 @@ $effect(()=>{
 		class="h-[80vh] min-h-[300px] min-w-2/3 max-md:w-full"
 		style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 		zoom={3.5}
-		center={[74, 43]}
+		center={[-43.961837778477445, -19.966752768041207]}
 		onclick={(e) => {
 			const loc = e.lngLat;
 			console.log('click loc', loc);

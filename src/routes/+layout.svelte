@@ -4,19 +4,33 @@
 	let { children } = $props();
 
 	import auth from '$lib/client/auth-client';
+	import { Building2, Map } from 'lucide-svelte';
 	const session = auth.useSession();
 
 	const org = auth.useActiveOrganization();
+
+	$inspect($session)
 </script>
 
-<div class="navbar bg-base-100 shadow-sm">
-	<div class="flex-1">
-		<a href="/" class="btn btn-ghost text-xl">Rota88</a>
-	</div>
-	<div class="flex items-center gap-2">
-		<a href="/map" class="link"> Map </a>
-		<a href="/org" class="link"> Orgs </a>
-		{#if $session?.data?.user.name}
+<nav class="bg-base-200 sticky top-0 z-50 w-full border-b border-primary/20 shadow-sm">
+	<div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+		<div class="flex items-center">
+			<a href="/" class="flex items-center gap-2 text-xl font-bold text-secondary"> Rota88 </a>
+		</div>
+
+		<div class="items-center gap-4 md:flex">
+			<a href="/map" class="flex items-center gap-1.5 btn btn-sm btn-ghost hover:bg-primary/10">
+				<Map class="h-4 w-4" />
+				Map
+			</a>
+			<a href="/org" class="flex items-center gap-1.5 btn btn-sm btn-ghost hover:bg-primary/10">
+				<Building2 class="h-4 w-4" />
+				Organizations
+			</a>
+		</div>
+
+		<div class="flex items-center gap-2">
+			{#if $session?.data?.user.name}
 			<div class="dropdown dropdown-end">
 				<div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
 					<div class="w-10 rounded-full">
@@ -62,11 +76,11 @@
 					</li>
 				</ul>
 			</div>
-		{:else}
-			<a href="/login"> Login</a>
-		{/if}
+			{:else}
+				<a href="/login" class="btn btn-primary btn-sm"> Login </a>
+			{/if}
+		</div>
 	</div>
-</div>
-
+</nav>
 
 {@render children()}
