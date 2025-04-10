@@ -1,4 +1,6 @@
 <script lang="ts">
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    /* eslint-disable no-unused-vars */
 	// MAP
 	import {
 		MapLibre,
@@ -23,7 +25,6 @@
 	import { api } from '$lib/client/api';
 	let { data, children }: { data: LayoutData; children: Snippet } = $props();
 	const restaurant = setRestaurant();
-
 	const debouncedUpdate = debounce(api.motoboy.update, 500);
 
 	// onDestroy(restaurant.destructor);

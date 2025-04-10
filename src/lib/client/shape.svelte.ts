@@ -27,11 +27,11 @@ export class Live<T extends Row> {
 			console.log("Stream: " +  JSON.stringify(stream))
 			const shape = new Shape<T>(stream);
 			console.log("Shape: " + JSON.stringify(shape))
-			// shape.rows.then((r) => {
-			// 	console.log('then');
-			// 	console.log(r);
-			// 	this.rows = r;
-			// });
+			shape.rows.then((r) => {
+				console.log('then');
+				console.log(r);
+				this.rows = r;
+			});
 			this.#unsub = shape.subscribe((d) => {
 				console.log('subscribe');
 				console.log(d.rows);

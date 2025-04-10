@@ -1,4 +1,6 @@
 <script lang="ts">
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    /* eslint-disable no-unused-vars */
 	// SVELTE
 	// import type { PageData } from '../$types';
 	// let { data }: { data: PageData } = $props();
@@ -6,19 +8,6 @@
 	// LIVE
 
 	// MAP
-	import {
-		MapLibre,
-		NavigationControl,
-		ScaleControl,
-		GlobeControl,
-		Marker,
-		GeolocateControl,
-		FullScreenControl,
-		CircleLayer,
-		GeoJSONSource
-	} from 'svelte-maplibre-gl';
-	import type GeoJSON from 'geojson';
-
 	// INTERNAL
 	import { debounce, parseEWKB } from '$lib';
 	import { api } from '$lib/client/api';

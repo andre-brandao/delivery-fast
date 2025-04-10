@@ -29,7 +29,7 @@ export class RestaurantState {
 				// 	'status'
 				// ],
 				// params: ['18'],
-				replica: 'full'
+				// replica: 'full'
 			}
 		});
 	}
