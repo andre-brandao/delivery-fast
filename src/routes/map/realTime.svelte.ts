@@ -1,51 +1,55 @@
-import { PUBLIC_ELECTRIC_URL } from '$env/static/public';
+import { page } from '$app/state';
+// import { PUBLIC_ELECTRIC_URL } from '$env/static/public';
 import { Live } from '$lib/client/shape.svelte';
 import type { Motoboy } from '$lib/server/db/order-schema';
 import { getContext, setContext } from 'svelte';
 // import type { Row } from '@electric-sql/client';
-// 
+//
 // const ELECTRIC_URL = `http://localhost:3000/v1/shape`;
 
 export class RestaurantState {
-	motoboys: Live<{
-		id: string;
-		location: string;
-		status: Motoboy['status'];
-	}>;
+    motoboys: Live<{
+        id: string;
+        location: string;
+        status: Motoboy['status'];
+    }>;
 
-	constructor() {
-		this.motoboys = new Live<{
-			id: string;
-			location: string;
-			status: Motoboy['status'];
-		}>({
-			url: PUBLIC_ELECTRIC_URL,
-			// url: "/api/live/user"
-			params: {
-				table: 'public.motoboy',
-				// where: 'age > $1',
-				// columns: [
-				// 	'id',
-				// 	'location',
-				// 	'status'
-				// ],
-				// params: ['18'],
-				// replica: 'full'
-			}
-		});
-	}
-	destructor() {
-		
-		this.motoboys?.destructor?.();
-	}
+    constructor() {
+        this.motoboys = new Live<{
+            id: string;
+            location: string;
+            status: Motoboy['status'];
+        }>({
+            // url: PUBLIC_ELECTRIC_URL,
+            url: new URL(`/api/live/users`,
+                // window.location.origin
+                page.url.origin
+            ).href,
+            params: {
+                table: 'public.motoboy',
+                // where: 'age > $1',
+                // columns: [
+                // 	'id',
+                // 	'location',
+                // 	'status'
+                // ],
+                // params: ['18'],
+                // replica: 'full'
+            }
+        });
+    }
+    destructor() {
+        console.log("Restaurant Destructor")
+        this.motoboys?.destructor?.();
+    }
 }
 
 const RESTAURANT_KEY = Symbol('restaurant');
 
 
-export function setRestaurant():RestaurantState { 
+export function setRestaurant(): RestaurantState {
     return setContext(RESTAURANT_KEY, new RestaurantState())
 }
 export function getRestaurant(): RestaurantState {
-	return getContext(RESTAURANT_KEY);
+    return getContext(RESTAURANT_KEY);
 }
