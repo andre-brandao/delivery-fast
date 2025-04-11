@@ -1,7 +1,8 @@
 <script module lang="ts">
-	import type { Motoboy } from '$lib/server/db/order-schema';
+	import type { Motoboy, Order } from '$lib/server/db/order-schema';
+	import { Pizza } from 'lucide-svelte';
 
-	export { bike, motoboy };
+	export { bike, motoboy, pedido };
 </script>
 
 {#snippet bike()}
@@ -28,4 +29,8 @@
 	>
 		{@render bike()}
 	</svg>
+{/snippet}
+
+{#snippet pedido(status: Order['status'])}
+	<Pizza stroke={status === 'pending' ? 'orange' : status === 'delivered' ? 'green' : 'red'} />
 {/snippet}

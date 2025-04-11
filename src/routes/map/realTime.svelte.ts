@@ -56,7 +56,7 @@ export class RestaurantState {
 				page.url.origin
 			).href,
 			params: {
-				table: 'public.motoboy'
+				table: 'public.order'
 				// where: 'age > $1',
 				// columns: [
 				// 	'id',
@@ -71,6 +71,7 @@ export class RestaurantState {
 	destructor() {
 		console.log('Restaurant Destructor');
 		this.motoboys?.destructor?.();
+		this.pedidos.destructor();
 	}
 }
 

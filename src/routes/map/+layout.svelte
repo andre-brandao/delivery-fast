@@ -20,15 +20,32 @@
 
 	// DATA
 	import { setRestaurant } from './realTime.svelte';
-	import { motoboy } from '$lib/client/icons.svelte';
+	import * as icons from '$lib/client/icons.svelte';
 	import type { Motoboy } from '$lib/server/db/order-schema';
 	import { debounce, parseEWKB } from '$lib';
 	import { api } from '$lib/client/api';
+	import { page } from '$app/state';
 	let { data, children }: { data: LayoutData; children: Snippet } = $props();
 	const restaurant = setRestaurant();
 	const debouncedUpdate = debounce(api.motoboy.update, 500);
-
+	import { ShoppingBag, Pizza } from 'lucide-svelte';
 	// onDestroy(restaurant.destructor);
+	//
+	//
+	function handleMapClick(str: string) {
+		const currentPage = page.url.pathname;
+
+		if (currentPage.includes('motoboy')) {
+			api.motoboy.create(str);
+			return;
+		}
+		if (currentPage.includes('order')) {
+			api.order.create(str);
+			return;
+		}
+		console.log('unknown page');
+	}
+	//
 	$effect(() => {
 		return () => {
 			restaurant.destructor();
@@ -45,7 +62,8 @@
 		onclick={(e) => {
 			const loc = e.lngLat;
 			console.log('click loc', loc);
-			api.motoboy.create(`${loc.lat},${loc.lng}`);
+			handleMapClick(`${loc.lat},${loc.lng}`);
+			// api.motoboy.create(`${loc.lat},${loc.lng}`);
 		}}
 	>
 		<NavigationControl />
@@ -75,7 +93,17 @@
 					}
 				>
 					{#snippet content()}
-						{@render motoboy((row.status ?? 'available') as Motoboy['status'])}
+						{@render icons.motoboy((row.status ?? 'available') as Motoboy['status'])}
+					{/snippet}
+				</Marker>
+			{/if}
+		{/each}
+		{#each restaurant.pedidos.rows as row (row.id)}
+			{@const [lat, long] = parseEWKB(row.location)}
+			{#if lat < 90 && long < 180 && lat > -90 && long > -180}
+				<Marker lnglat={[long, lat]}>
+					{#snippet content()}
+						{@render icons.pedido('pending')}
 					{/snippet}
 				</Marker>
 			{/if}

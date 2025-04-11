@@ -46,5 +46,51 @@ export const api = {
 			fetch('/api/motoboy', {
 				method: 'DELETE'
 			})
+	},
+	order: {
+		create: (loc: string) =>
+			fetch('/api/order', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+
+				body: JSON.stringify({ location: loc })
+			})
+				// .then((response) => response.json())
+				.then((data) => {
+					console.log('order created', data);
+				})
+				.catch((error) => {
+					console.error('Error creating order:', error);
+				}),
+
+		update: (id: unknown, loc: string, status: Motoboy['status'] | string) => {
+			if (typeof id !== 'string') {
+				console.error('id is not a string', id);
+				return;
+			}
+			return (
+				fetch('/api/order', {
+					method: 'PATCH',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+
+					body: JSON.stringify({ id, location: loc, status })
+				})
+					// .then((response) => response.json())
+					.then((data) => {
+						console.log('order updated', data);
+					})
+					.catch((error) => {
+						console.error('Error creating order:', error);
+					})
+			);
+		},
+		deleteAll: () =>
+			fetch('/api/order', {
+				method: 'DELETE'
+			})
 	}
 };

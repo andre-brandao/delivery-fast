@@ -44,5 +44,8 @@ export const order = pgTable('order', {
 	id: uuid('id').primaryKey().defaultRandom(),
 	data: json('data').notNull(),
 	status: orderStatusEnum('status').notNull().default('pending'),
-	routeId: uuid('route_id').references(() => route.id, { onDelete: 'cascade' })
+	routeId: uuid('route_id').references(() => route.id, { onDelete: 'cascade' }),
+	location: geometry('location', { mode: 'tuple', srid: 4326 }).notNull()
 });
+
+export type Order = typeof order.$inferSelect;
