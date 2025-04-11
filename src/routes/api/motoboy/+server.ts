@@ -35,7 +35,7 @@ export const PATCH: RequestHandler = async ({ request }) => {
 	try {
 		const body = await request.json();
 		const location = toLoc(body.location);
-		const status = toMotoboyStatus(body.status)
+		const status = toMotoboyStatus(body.status);
 		const id = body.id;
 		if (!id) {
 			return new Response('Invalid id', { status: 400 });
@@ -44,7 +44,7 @@ export const PATCH: RequestHandler = async ({ request }) => {
 			.update(s.motoboy)
 			.set({
 				location: location,
-				status: status || undefined,
+				status: status || undefined
 			})
 			.where(eq(s.motoboy.id, id));
 		return new Response();
@@ -68,5 +68,5 @@ function toMotoboyStatus(s: unknown): s.Motoboy['status'] {
 		return 'available';
 	}
 
-	return s as s.Motoboy['status']
+	return s as s.Motoboy['status'];
 }

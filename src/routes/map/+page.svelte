@@ -1,6 +1,6 @@
 <script lang="ts">
-    /* eslint-disable @typescript-eslint/no-unused-vars */
-    /* eslint-disable no-unused-vars */
+	/* eslint-disable @typescript-eslint/no-unused-vars */
+	/* eslint-disable no-unused-vars */
 	// SVELTE
 	// import type { PageData } from '../$types';
 	// let { data }: { data: PageData } = $props();
@@ -18,7 +18,7 @@
 
 	const restaurant = getRestaurant();
 
-	const cicleStatus =async  (row: { id: string; location: string; status: string }) => {
+	const cicleStatus = async (row: { id: string; location: string; status: string }) => {
 		switch (row.status) {
 			case 'available':
 				await api.motoboy.update(row.id, row.location, 'busy');

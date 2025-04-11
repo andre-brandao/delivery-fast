@@ -4,7 +4,7 @@
 	let { data }: { data: PageData } = $props();
 </script>
 
-<div class="flex flex-col items-center justify-center h-screen">
+<div class="flex h-screen flex-col items-center justify-center">
 	<a href="/org" class="link">Go to Organizations</a>
 
 	<p>Welcome to the main page!</p>

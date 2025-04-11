@@ -1,6 +1,6 @@
 <script lang="ts">
-    /* eslint-disable @typescript-eslint/no-unused-vars */
-    /* eslint-disable no-unused-vars */
+	/* eslint-disable @typescript-eslint/no-unused-vars */
+	/* eslint-disable no-unused-vars */
 	// MAP
 	import {
 		MapLibre,
@@ -16,6 +16,7 @@
 	// SVELTE
 	import { onDestroy, type Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
+	import Nav from './Nav.svelte';
 
 	// DATA
 	import { setRestaurant } from './realTime.svelte';
@@ -28,11 +29,11 @@
 	const debouncedUpdate = debounce(api.motoboy.update, 500);
 
 	// onDestroy(restaurant.destructor);
-$effect(()=>{
-    return ()=>{
-        restaurant.destructor()
-    }
-})
+	$effect(() => {
+		return () => {
+			restaurant.destructor();
+		};
+	});
 </script>
 
 <div class="flex max-md:flex-col">
@@ -81,6 +82,7 @@ $effect(()=>{
 		{/each}
 	</MapLibre>
 	<div>
+		<Nav />
 		{@render children()}
 	</div>
 </div>

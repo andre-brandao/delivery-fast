@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
 @plugin 'daisyui' {
-    logs: false;
-    themes: bumblebee --default;
+	logs: false;
+	themes: bumblebee --default;
 }

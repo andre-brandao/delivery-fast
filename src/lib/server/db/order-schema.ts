@@ -37,8 +37,7 @@ export const orderStatusEnum = pgEnum('order_status', [
 
 export const route = pgTable('route', {
 	id: uuid('id').primaryKey().defaultRandom(),
-	motoboyId: uuid('motoboy_id')
-		.references(() => motoboy.id, { onDelete: 'set null' }),
+	motoboyId: uuid('motoboy_id').references(() => motoboy.id, { onDelete: 'set null' }),
 	createdAt: timestamp('created_at').notNull().defaultNow()
 });
 export const order = pgTable('order', {

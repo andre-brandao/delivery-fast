@@ -1,7 +1,7 @@
 <script module lang="ts">
 	import type { Motoboy } from '$lib/server/db/order-schema';
 
-	export { bike, motoboy }
+	export { bike, motoboy };
 </script>
 
 {#snippet bike()}

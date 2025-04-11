@@ -1,4 +1,4 @@
-import type { Motoboy } from "$lib/server/db/order-schema";
+import type { Motoboy } from '$lib/server/db/order-schema';
 
 export const api = {
 	motoboy: {
@@ -42,8 +42,9 @@ export const api = {
 					})
 			);
 		},
-        deleteAll : () => fetch('/api/motoboy', {
-			method: 'DELETE'
-		})
+		deleteAll: () =>
+			fetch('/api/motoboy', {
+				method: 'DELETE'
+			})
 	}
 };

@@ -1,15 +1,14 @@
-
 /**
  * Parses Extended Well-Known Binary (EWKB) hexadecimal representation
  * of a point geometry and extracts its coordinates.
- * 
+ *
  * This function handles both little-endian and big-endian formats and expects
  * a point geometry type. The returned coordinates are in the format [latitude, longitude].
- * 
+ *
  * @param wkbHex - Hexadecimal string representation of EWKB point data
  * @returns A tuple containing [latitude, longitude] coordinates
  * @throws {Error} If the EWKB does not represent a Point geometry
- * 
+ *
  * @example
  * const coords = parseEWKB("0101000020E6100000000000000000F03F0000000000000040");
  * // Returns [2, 1] (latitude, longitude)
@@ -40,10 +39,9 @@ export function parseEWKB(wkbHex: unknown): [number, number] {
 	const longitude = littleEndian ? view.getFloat64(9, true) : view.getFloat64(9, false);
 	const latitude = littleEndian ? view.getFloat64(17, true) : view.getFloat64(17, false);
 
-	return [latitude, longitude] 
+	return [latitude, longitude];
 	// return { latitude, longitude, srid };
 }
-
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function debounce<T extends (...args: any[]) => void>(

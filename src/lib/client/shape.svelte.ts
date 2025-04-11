@@ -24,9 +24,9 @@ export class Live<T extends Row> {
 				},
 				...options
 			});
-			console.log("Stream: " +  JSON.stringify(stream))
+			console.log('Stream: ' + JSON.stringify(stream));
 			const shape = new Shape<T>(stream);
-			console.log("Shape: " + JSON.stringify(shape))
+			console.log('Shape: ' + JSON.stringify(shape));
 			shape.rows.then((r) => {
 				console.log('then');
 				console.log(r);

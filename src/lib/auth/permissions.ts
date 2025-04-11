@@ -27,13 +27,12 @@ export const motoboy = ac.newRole({
 	order: ['update']
 });
 
-
 export const roles = {
 	member,
 	admin,
 	owner,
 	motoboy
-}
+};
 // const res = admin.authorize({
 // 	project: ['create']
 // });
