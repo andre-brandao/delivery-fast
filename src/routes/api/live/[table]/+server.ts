@@ -1,10 +1,11 @@
+import { PUBLIC_ELECTRIC_URL } from '$env/static/public';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ request }) => {
 	const url = new URL(request.url);
 
 	// Construct the upstream URL
-	const originUrl = new URL(`http://localhost:3000/v1/shape`);
+	const originUrl = new URL(PUBLIC_ELECTRIC_URL);
 
 	// Copy over the relevant query params that the Electric client adds
 	// so that we return the right part of the Shape log.
